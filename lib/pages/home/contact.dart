@@ -50,18 +50,18 @@ class UserDetails extends StatelessWidget {
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(width: 95,),
                           CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.white,
                               child: TextButton(
                                   onPressed: () {
                                     launchUrl(Uri.parse(
-                                        'https://www.facebook.com/thwasim.aslam'));
+                                        'https://github.com/thwasim'));
                                   },
                                   child: Image.asset(
-                                      'assets/Facebook-removebg-preview.png'))),
+                                      'assets/download_prev_ui.png'))),
                           SizedBox(width: 10),
                           CircleAvatar(
                             radius: 32,

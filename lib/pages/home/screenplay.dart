@@ -54,7 +54,7 @@ class _ScreenplayState extends State<Screenplay> {
               padding:
                   const EdgeInsets.only(top: 56.0, right: 20.0, left: 20.0),
               child: Column(
-                children: <Widget>[
+                children: [
                   //exit button and the song page
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

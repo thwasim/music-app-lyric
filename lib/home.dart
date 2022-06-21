@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePages> {
   int _currentIndex = 0;
   List<Widget> page = [
     MyHomePage(),
-    SearchPage(),
+    SearchScreen(),
     PlayList(),
     FavouritePage(),
   ];
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePages> {
                               end: Alignment.bottomRight,
                               colors: [
                                 Color.fromARGB(255, 255, 0, 0),
-                                Color.fromARGB(255, 54, 216, 234),
+                                Color.fromARGB(255, 54, 216, 234), 
                               ]),
                           borderRadius: BorderRadius.circular(29),
                         ),

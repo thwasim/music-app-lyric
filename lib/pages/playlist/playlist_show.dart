@@ -30,36 +30,23 @@ class _Screen_playlistState extends State<Screen_playlist> {
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(
-                    'assets/aass.webp'
-                  ),
+                  image: AssetImage('assets/Motivational Wallpaper.jpg'),
                   fit: BoxFit.cover)),
           child: ListView.builder(
               itemCount: MyHomePage.songs.length,
               itemBuilder: (context, index) {
                 return Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            'assets/aass.webp',
-                          ),
-                          fit: BoxFit.cover)),
                   child: Container(
                     margin: EdgeInsets.only(bottom: 30, left: 12, right: 16),
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.white,
-                            Color.fromARGB(255, 54, 216, 234),
-                          ]),
+                      color: Colors.black54,
                       borderRadius: BorderRadius.circular(30),
-                    ),
+                      border: Border.all(width: 2, color: Colors.white),
+                    ),  
                     child: ListTile(
                       title: Text(
-                        MyHomePage.songs[index].title,
+                        MyHomePage.songs[index].title,style: TextStyle(color: Colors.white),
                         maxLines: 2,
                       ),
                       trailing: PlaylistButton(
@@ -74,9 +61,7 @@ class _Screen_playlistState extends State<Screen_playlist> {
                     ),
                   ),
                 );
-              }
-            ),
-          )
-      );
+              }),
+        ));
   }
 }

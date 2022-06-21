@@ -1,7 +1,6 @@
 import 'package:Music_player/db_functions/databaseplaylist.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
-import 'package:Music_player/pages/playlist/playboutton.dart';
 import 'package:Music_player/pages/playlist/playlist_show.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -48,13 +47,18 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) =>
-                        Screen_playlist(modelindex: widget.newindex!)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                  return Screen_playlist(modelindex: widget.newindex!);
+                })).whenComplete(() {
+                  setState(() {});
+                });
               },
               icon: Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: const Icon(Icons.add_box_outlined),
+                child: Icon(
+                  Icons.add_box_outlined,
+                  color: Color.fromARGB(255, 255, 17, 0),
+                ),
               ))
         ],
       ),
@@ -62,7 +66,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                'assets/aass.webp',
+                'assets/Motivational Wallpaper.jpg',
               ),
               fit: BoxFit.cover),
         ),
@@ -73,9 +77,14 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                 ? const Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 30),
-                      child: Text(
-                        'Add Songs',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      child: Center(
+                        child: Text(
+                          'NO SONGS',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   )
@@ -95,14 +104,10 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                       bottom: 30, left: 12, right: 16),
                                   padding: EdgeInsets.only(top: 10, bottom: 10),
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Color.fromARGB(255, 255, 255, 255),
-                                          Color.fromARGB(255, 54, 216, 234),
-                                        ]),
+                                    color: Colors.black54,
                                     borderRadius: BorderRadius.circular(30),
+                                    border: Border.all(
+                                        width: 2, color: Colors.white),
                                   ),
                                   child: ListTile(
                                     onTap: () {
@@ -137,7 +142,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                           .title,
                                       style: const TextStyle(
                                           overflow: TextOverflow.ellipsis,
-                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                          color: Color.fromARGB(255, 255, 255, 255)),
                                     ),
                                   ),
                                 ));
@@ -146,18 +151,6 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                   ),
           ],
         ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 160, bottom: 20),
-        child: IconButton(
-            onPressed: () {
-              setState(() {});
-            },
-            icon: const Icon(
-              Icons.restart_alt,
-              size: 50,
-              color: Color.fromARGB(255, 255, 0, 0),
-            )),
       ),
     );
   }

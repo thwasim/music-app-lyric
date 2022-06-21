@@ -79,63 +79,64 @@ class _MyHomePage extends State<MyHomePage> {
               return Center(
                 child: Text(
                   "NO SONGS",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               );
             }
 
             MyHomePage.songs = item.data!;
-            return ListView.builder(
-                itemCount: item.data!.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'assets/aass.webp',
-                            ),
-                            fit: BoxFit.cover)),
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 30, left: 12, right: 16),
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white,
-                              Color.fromARGB(255, 54, 216, 234),
-                            ]),
-                        borderRadius: BorderRadius.circular(30),
+            return Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/Motivational Wallpaper.jpg',
                       ),
-                      child: ListTile(
-                        title: Text(
-                          item.data![index].title,
-                          maxLines: 2,
+                      fit: BoxFit.cover)),
+              child: ListView.builder(
+                  itemCount: item.data!.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Container(
+                        margin:
+                            EdgeInsets.only(bottom: 20, left: 12, right: 16),
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.black54,
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(width: 2,color: Colors.white),
                         ),
-                        trailing: FavFunction(index: index),
-                        leading: QueryArtworkWidget(
-                          id: item.data![index].id,
-                          type: ArtworkType.AUDIO,
+                        child: ListTile(
+                          title: Text(
+                            item.data![index].title,style: TextStyle(color: Colors.white),
+                            maxLines: 2,
+                          ),
+                          trailing: FavFunction(index: index),
+                          leading: QueryArtworkWidget(
+                            id: item.data![index].id,
+                            type: ArtworkType.AUDIO,
+                          ),
+                          onTap: () async {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (ctx) => Screenplay(
+                                          songlist: MyHomePage.songs,
+                                        )))
+                                .then((_) {
+                              setState(() {});
+                            });
+                            await MyHomePage.player.setAudioSource(
+                                createPlaylist(item.data!),
+                                initialIndex: index);
+                            await MyHomePage.player.play();
+                          },
                         ),
-                        onTap: () async {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (ctx) => Screenplay(
-                                        songlist: MyHomePage.songs,
-                                      )))
-                              .then((_) {
-                            setState(() {});
-                          });
-                          await MyHomePage.player.setAudioSource(
-                              createPlaylist(item.data!),
-                              initialIndex: index);
-                          await MyHomePage.player.play();
-                        },
                       ),
-                    ),
-                  );
-                });
+                    );
+                  }),
+            );
           },
         ),
       ),
@@ -194,8 +195,11 @@ class _MyHomePage extends State<MyHomePage> {
                               )),
                           TextButton(
                               onPressed: () {
-                               playlistsongCheck.reseapp();
-                               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx)=>Screensplah()), (route) => false);
+                                playlistsongCheck.reseapp();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => Screensplah()),
+                                    (route) => false);
                               },
                               child: Text(
                                 'Restart',
@@ -205,8 +209,13 @@ class _MyHomePage extends State<MyHomePage> {
                     });
               },
             ),
-            SizedBox(height: 230,),
-            Divider(color: Colors.black,thickness: 3,),
+            SizedBox(
+              height: 230,
+            ),
+            Divider(
+              color: Colors.black,
+              thickness: 3,
+            ),
             ListTile(
               leading: Icon(
                 Icons.smart_toy_outlined,

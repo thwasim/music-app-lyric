@@ -33,7 +33,7 @@ class _FavFunctionState extends State<FavFunction> {
           },
           icon: const Icon(
             Icons.favorite,
-            color: Colors.red,
+            color: Color.fromARGB(255, 255, 17, 0),
             size: 30,
           ));
     }
@@ -55,7 +55,7 @@ class _FavFunctionState extends State<FavFunction> {
       },
       icon: const Icon(
         Icons.favorite_border,
-        color: Color.fromARGB(255, 236, 131, 131),
+        color: Color.fromARGB(255, 255, 0, 0),
         size: 35,
       ),
     );

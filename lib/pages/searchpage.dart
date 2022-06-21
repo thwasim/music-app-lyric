@@ -7,113 +7,106 @@ import 'package:Music_player/pages/home/homepage.dart';
 
 ValueNotifier<List<SongModel>> temp = ValueNotifier([]);
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class SearchScreen extends StatelessWidget {
+  SearchScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  final searchcontroller = TextEditingController();
-
+  ValueNotifier<List<SongModel>> temp = ValueNotifier([]);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
-        child: AppBar(
-            backgroundColor: Colors.black,
-            shadowColor: Colors.white,
-            elevation: 15,
-            title: Center(
-              child: Container(
-                height: 60,
-                child: Center(
-                    child: TextField(
-                  onChanged: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      temp.value.addAll(MyHomePage.songs);
-                      temp.notifyListeners();
-                    } else {
-                      temp.value.clear();
-                      for (SongModel a in MyHomePage.songs) {
-                        if (a.title.toLowerCase()
-                            .contains(value.toLowerCase())) {
-                          temp.value.add(a);
-                        }
-                        temp.notifyListeners();
-                      }
-                    }
-                  },
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(27),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      prefixIcon: Icon(Icons.search),
-                      hintText: "Search Songs",
-                      hintStyle: TextStyle(color: Colors.black)),
-                )),
-              ),
-            )),
-      ),
-      body: SafeArea(
-        child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/aass.webp',
-                  ),
-                  fit: BoxFit.cover),
+    final searchController = TextEditingController();
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(
+              'assets/Motivational Wallpaper.jpg',
             ),
-            
-            child: Container(
-              
+            fit: BoxFit.cover),
+      ),
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(30),
+            child: TextField(
+              onTap: () {},
+              onChanged: (String? value) {
+                if (value == null || value.isEmpty) {
+                  temp.value.addAll(MyHomePage.songs);
+                }
+                temp.value.clear();
+                for (SongModel i in MyHomePage.songs) {
+                  if (i.title.toLowerCase().contains(value!.toLowerCase())) {
+                    temp.value.add(i);
+                  }
+                  temp.notifyListeners();
+                }
+              },
+              controller: searchController,
+              decoration: InputDecoration(
+                hintText: 'Search here',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                filled: true,
+                errorBorder: InputBorder.none,
+                fillColor: Colors.white,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
               child: ValueListenableBuilder(
                   valueListenable: temp,
-                  builder: (BuildContext ctx, List<SongModel> searchdata,
-                      Widget? child) {
-                    return ListView.separated(
+                  builder: (BuildContext ctx, List<SongModel> searchData,
+                      Widget? chld) {
+                    return ListView.builder(
                       itemBuilder: (ctx, index) {
-                        final data = searchdata[index];
+                        final data = searchData[index];
                         return Container(
-                          margin: EdgeInsets.only(left: 12, right: 16, top: 29),
+                          margin:EdgeInsets.only(bottom: 20),
                           padding: EdgeInsets.only(top: 10, bottom: 10),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(255, 54, 216, 234),
-                                ]),
+                            color: Colors.black54,
                             borderRadius: BorderRadius.circular(30),
+                            border: Border.all(width: 2, color: Colors.white),
                           ),
                           child: ListTile(
-                            leading: QueryArtworkWidget(
-                                id: searchdata[index].id,
-                                type: ArtworkType.AUDIO),
-                            title: Text(data.title),
-                            onTap: () async {
-                              await MyHomePage.player.setAudioSource(
-                                  createPlaylist(searchdata),
-                                  initialIndex: index);
-                              await MyHomePage.player.play();
+                            onTap: () {
+                              MyHomePage.player.setAudioSource(
+                                createPlaylist(searchData),
+                                initialIndex: index,
+                              );
+                              MyHomePage.player.play();
                               Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => Screenplay(songlist: MyHomePage.songs,)));
+                                  builder: (ctx) =>
+                                      Screenplay(songlist: searchData)));
                             },
+                            title: Text(
+                              data.title,
+                              style: const TextStyle(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            leading: CircleAvatar(
+                                child: QueryArtworkWidget(
+                              id: data.id,
+                              type: ArtworkType.AUDIO,
+                              artworkBorder: BorderRadius.circular(0),
+                            )),
                           ),
                         );
                       },
-                      separatorBuilder: (ctx, index) {
-                        return Divider();
-                      },
-                      itemCount: searchdata.length,
+                      itemCount: searchData.length,
                     );
                   }),
-            )),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -122,11 +115,7 @@ class _SearchPageState extends State<SearchPage> {
     List<AudioSource> sources = [];
     for (var song in songs) {
       sources.add(AudioSource.uri(Uri.parse(song.uri!),
-          tag: MediaItem(
-        id: song.id.toString(), 
-        title: song.title
-        )
-      ));
+          tag: MediaItem(id: song.id.toString(), title: song.title)));
     }
     return ConcatenatingAudioSource(children: sources);
   }

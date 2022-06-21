@@ -22,7 +22,7 @@ class PlayList extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  'assets/aass.webp',
+                  'assets/Motivational Wallpaper.jpg',
                 ),
                 fit: BoxFit.cover),
           ),
@@ -98,20 +98,16 @@ class PlayList extends StatelessWidget {
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Colors.white,
-                                              Color.fromARGB(255, 54, 216, 234),
-                                            ]),
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(width: 2,color: Color.fromARGB(255, 168, 168, 168)),
+                                        color: Colors.black87
                                       ),
                                       child: Center(
                                           child: Text(
                                         playlist[index].name.toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            color: Color.fromARGB(255, 255, 255, 255),
                                             fontSize: 18),
                                       ))));
                             }),
@@ -123,7 +119,7 @@ class PlayList extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(14.0),
         child: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 255, 0, 0),
+          backgroundColor: Colors.orange,
           child: Icon(Icons.add),
           onPressed: () {
             showDialog(

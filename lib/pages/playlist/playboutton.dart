@@ -54,7 +54,7 @@ class _PlaylistButtonState extends State<PlaylistButton> {
           },
           icon: const Icon(
             Icons.add_circle_outlined,
-            color: Color.fromARGB(255, 0, 0, 0),
+            color: Colors.white,
           ));
     }
     return IconButton(

@@ -17,7 +17,7 @@ class FavouritePage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                'assets/aass.webp',
+                'assets/Motivational Wallpaper.jpg',
               ),
               fit: BoxFit.cover),
         ),
@@ -35,26 +35,24 @@ class FavouritePage extends StatelessWidget {
                     itemCount: favlist.length,
                     itemBuilder: (ctx, index) {
                       return Padding(
-                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 29),
+                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 20),
                         child: Container(
                           height: 80,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                end: Alignment.centerRight,
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(255, 54, 216, 234),
-                                ]),
-                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(width: 2, color: Colors.white),
                           ),
                           child: ListTile(
                             onTap: () async {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (ctx) => Screenplay(
-                                        songlist:dbfunctions.favsongmodel.value,
+                                        songlist:
+                                            dbfunctions.favsongmodel.value,
                                       )));
                               await MyHomePage.player.setAudioSource(
-                                  createPlaylist(dbfunctions.favsongmodel.value),
+                                  createPlaylist(
+                                      dbfunctions.favsongmodel.value),
                                   initialIndex: index);
                               await MyHomePage.player.play();
                             },
@@ -65,7 +63,7 @@ class FavouritePage extends StatelessWidget {
                             title: Text(
                               MyHomePage.songs[favlist[index]].title,
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
+                                  color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
                             trailing: IconButton(
@@ -115,7 +113,8 @@ class FavouritePage extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   Icons.favorite,
-                                  color: Colors.red,
+                                  size: 32,
+                                  color: Color.fromARGB(255, 255, 17, 0),
                                 )),
                           ),
                         ),
