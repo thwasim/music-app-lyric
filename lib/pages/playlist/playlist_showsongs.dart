@@ -3,6 +3,7 @@ import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
 import 'package:Music_player/pages/playlist/playlist_show.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -38,7 +39,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         )),
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Get.back();
             },
             icon: Icon(
               Icons.arrow_back,
@@ -117,13 +118,10 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                         initialIndex: index,
                                       );
                                       MyHomePage.player.play();
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (ctx) => Screenplay(
+                                      Get.to(()=>Screenplay(
                                           songlist: playlistsongCheck
                                               .playlistmodel.value,
-                                        ),
-                                      ));
+                                        ),);
                                     },
                                     leading: CircleAvatar(
                                       child: QueryArtworkWidget(

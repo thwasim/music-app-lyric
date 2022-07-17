@@ -1,3 +1,4 @@
+import 'package:Music_player/controller/favourte_controller.dart';
 import 'package:Music_player/db_functions/databasefavourite.dart';
 import 'package:Music_player/db_functions/databaseplaylist.dart';
 import 'package:Music_player/pages/favourtie/favouritebutton.dart';
@@ -6,6 +7,7 @@ import 'package:Music_player/pages/home/screenplay.dart';
 import 'package:Music_player/splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,10 +17,9 @@ class MyHomePage extends StatefulWidget {
 
   static final AudioPlayer player = AudioPlayer();
 
-  const MyHomePage({
-    Key? key,
-  }) : super(key: key);
+   MyHomePage({Key? key,}) : super(key: key);
 
+  FavourtieController favcontroller = Get.put(FavourtieController());
   @override
   State<MyHomePage> createState() => _MyHomePage();
 }
@@ -41,8 +42,8 @@ class _MyHomePage extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    dbfunctions.displaySongs();
-    return Scaffold(
+    // dbfunctions.displaySongs();
+    return Scaffold(  
       backgroundColor: Colors.black,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -106,11 +107,12 @@ class _MyHomePage extends State<MyHomePage> {
                         decoration: BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(width: 2,color: Colors.white),
+                          border: Border.all(width: 2, color: Colors.white),
                         ),
                         child: ListTile(
                           title: Text(
-                            item.data![index].title,style: TextStyle(color: Colors.white),
+                            item.data![index].title,
+                            style: TextStyle(color: Colors.white),
                             maxLines: 2,
                           ),
                           trailing: FavFunction(index: index),
@@ -155,7 +157,7 @@ class _MyHomePage extends State<MyHomePage> {
               ),
               title: Text("Home"),
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
               },
             ),
             ListTile(
@@ -165,8 +167,7 @@ class _MyHomePage extends State<MyHomePage> {
               ),
               title: Text("Contact Us"),
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => UserDetails()));
+                Get.to(() => UserDetails());
               },
             ),
             ListTile(
@@ -176,37 +177,21 @@ class _MyHomePage extends State<MyHomePage> {
               ),
               title: Text("App Restart"),
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (ctx) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        title: Text(
-                          'Restart App',
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text(
-                                'Cancel',
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                playlistsongCheck.reseapp();
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (ctx) => Screensplah()),
-                                    (route) => false);
-                              },
-                              child: Text(
-                                'Restart',
-                              )),
-                        ],
-                      );
-                    });
+                Get.defaultDialog(
+                  title: 'Restart App',
+                  middleText: '',
+                  textCancel: 'Cancel',
+                  cancelTextColor: Colors.black,
+                  textConfirm: 'Delete',
+                  confirmTextColor: Colors.black,
+                  onCancel: () {
+                    Get.back();
+                  },
+                  onConfirm: () {
+                    playlistsongCheck.reseapp();
+                    Get.offAll(Screensplah());
+                  },
+                );
               },
             ),
             SizedBox(

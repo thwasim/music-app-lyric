@@ -3,6 +3,7 @@ import 'package:Music_player/db_functions/databasefavourite.dart';
 import 'package:Music_player/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
@@ -15,7 +16,7 @@ Future<void> main() async {
     Hive.registerAdapter(PlaylistmodelsAdapter());
   }
 
-  dbfunctions.getAllsongs();
+  // dbfunctions.getAllsongs();
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(primarySwatch: Colors.green),
       home: Screensplah(),
       debugShowCheckedModeBanner: false,

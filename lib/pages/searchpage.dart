@@ -43,7 +43,7 @@ class SearchScreen extends StatelessWidget {
               },
               controller: searchController,
               decoration: InputDecoration(
-                hintText: 'Search here',
+                hintText: 'Search Here',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -69,7 +69,7 @@ class SearchScreen extends StatelessWidget {
                       itemBuilder: (ctx, index) {
                         final data = searchData[index];
                         return Container(
-                          margin:EdgeInsets.only(bottom: 20),
+                          margin: EdgeInsets.only(bottom: 20),
                           padding: EdgeInsets.only(top: 10, bottom: 10),
                           decoration: BoxDecoration(
                             color: Colors.black54,

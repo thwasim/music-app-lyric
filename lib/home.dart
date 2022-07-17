@@ -2,6 +2,7 @@ import 'package:Music_player/pages/favourtie/favourite.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'pages/playlist/playlist.dart';
@@ -146,9 +147,7 @@ class _MyHomePageState extends State<MyHomePages> {
                             i++) {
                           widget.fianllist!.add(Screenplay.playingdetails![i]);
                         }
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (ctx) =>
-                                Screenplay(songlist: widget.fianllist)));
+                        Get.to(()=>Screenplay(songlist: widget.fianllist));
                       },
                     )
                   : SizedBox(

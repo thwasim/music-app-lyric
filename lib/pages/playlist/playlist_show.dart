@@ -6,7 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 // ignore: must_be_immutable
 class Screen_playlist extends StatefulWidget {
-  Screen_playlist({Key? key, required this.modelindex}) : super(key: key);
+  Screen_playlist({Key? key,required this.modelindex}) : super(key: key);
 
   int modelindex;
 

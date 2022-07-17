@@ -1,17 +1,21 @@
-import 'package:Music_player/db_functions/databasefavourite.dart';
+import 'package:Music_player/controller/favourte_controller.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavouritePage extends StatelessWidget {
-  const FavouritePage({Key? key}) : super(key: key);
+   FavouritePage({Key? key}) : super(key: key);
+
+ 
+   FavourtieController favcontroller = Get.put(FavourtieController());
 
   @override
   Widget build(BuildContext context) {
-    dbfunctions.favouritesongs;
+    // dbfunctions.favouritesongs;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -26,13 +30,11 @@ class FavouritePage extends StatelessWidget {
             AppBar(
                 backgroundColor: Colors.black,
                 title: Center(child: Text('Favourite'))),
-            ValueListenableBuilder(
-                valueListenable: dbfunctions.favouritesongs,
-                builder:
-                    (BuildContext ctx, List<dynamic> favlist, Widget? child) {
+            GetBuilder<FavourtieController>(
+                builder:(controller) {
                   return Expanded(
                       child: ListView.builder(
-                    itemCount: favlist.length,
+                    itemCount:controller.favouritesongs.length,
                     itemBuilder: (ctx, index) {
                       return Padding(
                         padding: EdgeInsets.only(left: 8, right: 8, bottom: 20),
@@ -45,25 +47,22 @@ class FavouritePage extends StatelessWidget {
                           ),
                           child: ListTile(
                             onTap: () async {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => Screenplay(
-                                        songlist:
-                                            dbfunctions.favsongmodel.value,
-                                      )));
+                              Get.to(() => Screenplay(
+                                    songlist: controller.favsongmodel,
+                                  ));
                               await MyHomePage.player.setAudioSource(
                                   createPlaylist(
-                                      dbfunctions.favsongmodel.value),
+                                      controller.favsongmodel),
                                   initialIndex: index);
                               await MyHomePage.player.play();
                             },
                             contentPadding: EdgeInsets.all(10),
                             leading: QueryArtworkWidget(
-                                id: MyHomePage.songs[favlist[index]].id,
+                                id: favcontroller.favouritesongs[index].id,
                                 type: ArtworkType.AUDIO),
                             title: Text(
-                              MyHomePage.songs[favlist[index]].title,
-                              style: TextStyle(
-                                  color: Colors.white),
+                              favcontroller.favouritesongs [index].title,
+                              style: TextStyle(color: Colors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
                             trailing: IconButton(
@@ -81,14 +80,14 @@ class FavouritePage extends StatelessWidget {
                                           actions: [
                                             TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  Get.back();
                                                 },
                                                 child: Text(
                                                   'Cancel',
                                                 )),
                                             TextButton(
                                                 onPressed: () {
-                                                  dbfunctions.deletefav(index);
+                                                  controller.deletefav(index);
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     SnackBar(
@@ -102,7 +101,7 @@ class FavouritePage extends StatelessWidget {
                                                             SnackBarBehavior
                                                                 .floating),
                                                   );
-                                                  Navigator.of(context).pop();
+                                                  Get.back();
                                                 },
                                                 child: Text(
                                                   'Remove',

@@ -1,5 +1,6 @@
 import 'package:Music_player/home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Screensplah extends StatefulWidget {
   const Screensplah({Key? key}) : super(key: key);
@@ -32,8 +33,6 @@ class _ScreensplahState extends State<Screensplah> {
 
   Future<void> gohome() async {
     await Future.delayed(const Duration(seconds: 3));
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => MyHomePages(),
-    ));
+    Get.off( MyHomePages());
   }
 }

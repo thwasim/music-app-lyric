@@ -29,41 +29,37 @@ class PlaylistFunctions {
   await playlistsongCheck.showselectsong(index); 
    await getplayList(); 
  }
-  
-    static deleteplaylist(index) async{
-    final PlaylistDB =  await Hive.openBox<Playlistmodels>('PlayListsongs_dB');
-    await PlaylistDB.deleteAt(index);
-    getplayList();
-  }
-}
-
-
-class  playlistsongCheck{
-    static ValueNotifier<List<SongModel>> playlistmodel =ValueNotifier([]);
-static ValueNotifier<List> selectplaysong = ValueNotifier([]);
-static showselectsong(index)async{
-  final checksong = PlaylistFunctions.playlistsong.value[index].songlistdb;
-  selectplaysong.value.clear();
-  playlistmodel.value.clear();
-  for(int i = 0; i <checksong.length;i++ ){
-    for(int j = 0;j < MyHomePage.songs.length;j++){
-      if(MyHomePage.songs[j].id == checksong[i]){
-       selectplaysong.value.add(j);
-       playlistmodel.value.add(MyHomePage.songs[j]);
-        break;
-      }
-    }
-  }
- }
-
- static reseapp() async{
-  final playlistDB = await Hive.openBox<Playlistmodels>('PlayListsongs_dB');
-  final boxdb = await Hive.openBox('favourite');
-  playlistDB.clear();
-  boxdb.clear();
-  MyHomePage.player.pause();
- }
-
-
-
-}
+   
+    static deleteplaylist(index) async{ 
+    final PlaylistDB =  await Hive.openBox<Playlistmodels>('PlayListsongs_dB'); 
+    await PlaylistDB.deleteAt(index); 
+    getplayList(); 
+  } 
+} 
+ 
+ 
+class  playlistsongCheck{ static ValueNotifier<List<SongModel>> playlistmodel =ValueNotifier([]);
+static ValueNotifier<List> selectplaysong = ValueNotifier([]); 
+static showselectsong(index)async{ 
+  final checksong = PlaylistFunctions.playlistsong.value[index].songlistdb; 
+  selectplaysong.value.clear(); 
+  playlistmodel.value.clear(); 
+  for(int i = 0; i <checksong.length;i++ ){ 
+    for(int j = 0;j < MyHomePage.songs.length;j++){ 
+      if(MyHomePage.songs[j].id == checksong[i]){ 
+       selectplaysong.value.add(j); 
+       playlistmodel.value.add(MyHomePage.songs[j]); 
+        break; 
+      } 
+    } 
+  } 
+ } 
+ 
+ static reseapp() async{ 
+  final playlistDB = await Hive.openBox<Playlistmodels>('PlayListsongs_dB'); 
+  final boxdb = await Hive.openBox('favourite'); 
+  playlistDB.clear(); 
+  boxdb.clear(); 
+  MyHomePage.player.pause(); 
+ } 
+} 

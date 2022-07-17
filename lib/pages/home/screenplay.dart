@@ -55,7 +55,6 @@ class _ScreenplayState extends State<Screenplay> {
                   const EdgeInsets.only(top: 56.0, right: 20.0, left: 20.0),
               child: Column(
                 children: [
-                  //exit button and the song page
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,

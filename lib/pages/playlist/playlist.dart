@@ -2,11 +2,14 @@ import 'package:Music_player/db_functions/data_model.dart';
 import 'package:Music_player/db_functions/databaseplaylist.dart';
 import 'package:Music_player/pages/playlist/playlist_showsongs.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class PlayList extends StatelessWidget {
   PlayList({Key? key, this.addplaylist}) : super(key: key);
+
   final namecontroller = TextEditingController();
+  
   String? name;
   int? addplaylist;
   @override
@@ -51,11 +54,9 @@ class PlayList extends StatelessWidget {
                             itemBuilder: (BuildContext ctx, int index) {
                               return InkWell(
                                   onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (ctx) => PlaylistFolder(
-                                                  newindex: index,
-                                                )));
+                                    Get.to(() => PlaylistFolder(
+                                          newindex: index,
+                                        ));
                                   },
                                   onLongPress: () {
                                     showDialog(
@@ -74,7 +75,7 @@ class PlayList extends StatelessWidget {
                                             actions: [
                                               IconButton(
                                                   onPressed: () {
-                                                    Navigator.of(context).pop();
+                                                    Get.back();
                                                   },
                                                   icon: Icon(
                                                     Icons.cancel_outlined,
@@ -85,7 +86,7 @@ class PlayList extends StatelessWidget {
                                                   onPressed: () {
                                                     PlaylistFunctions
                                                         .deleteplaylist(index);
-                                                    Navigator.pop(context);
+                                                    Get.back();
                                                   },
                                                   icon: const Icon(
                                                     Icons.delete,
@@ -98,16 +99,20 @@ class PlayList extends StatelessWidget {
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(width: 2,color: Color.fromARGB(255, 168, 168, 168)),
-                                        color: Colors.black87
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border: Border.all(
+                                              width: 2,
+                                              color: Color.fromARGB(
+                                                  255, 168, 168, 168)),
+                                          color: Colors.black87),
                                       child: Center(
                                           child: Text(
                                         playlist[index].name.toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            color: Color.fromARGB(255, 255, 255, 255),
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255),
                                             fontSize: 18),
                                       ))));
                             }),
@@ -147,7 +152,7 @@ class PlayList extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 120),
                             child: TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Get.back();
                                 },
                                 child: Text('Cancel')),
                           ),
@@ -164,14 +169,14 @@ class PlayList extends StatelessWidget {
                                     backgroundColor:
                                         Color.fromARGB(255, 255, 17, 0),
                                   ));
-                                  Navigator.pop(context);
+                                  Get.back();
                                 }
                                 if (namecontroller.text.isNotEmpty) {
                                   final name = namecontroller.text;
                                   final model = Playlistmodels(
                                       name: name, songlistdb: []);
                                   PlaylistFunctions.addplaylist(model: model);
-                                  Navigator.pop(context);
+                                  Get.back();
                                 }
                               },
                               child: const Text('Create')),

@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PlaylistButton extends StatefulWidget {
-  PlaylistButton({Key? key,required this.index,required this.folderindex,required this.songindex}): super(key: key);
+  PlaylistButton(
+      {Key? key,
+      required this.index,
+      required this.folderindex,
+      required this.songindex})
+      : super(key: key);
   int? index;
   int? folderindex;
   int? songindex;
@@ -19,7 +24,8 @@ class PlaylistButton extends StatefulWidget {
 class _PlaylistButtonState extends State<PlaylistButton> {
   @override
   Widget build(BuildContext context) {
-    final checkindex = PlaylistFunctions.playlistsong.value[widget.folderindex!].songlistdb
+    final checkindex = PlaylistFunctions
+        .playlistsong.value[widget.folderindex!].songlistdb
         .contains(widget.songindex);
     final indexcheck = PlaylistFunctions
         .playlistsong.value[widget.folderindex!].songlistdb
