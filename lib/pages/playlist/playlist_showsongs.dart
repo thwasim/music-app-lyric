@@ -20,6 +20,12 @@ class PlaylistFolder extends StatefulWidget {
 
 class _PlaylistFolderState extends State<PlaylistFolder> {
   @override
+  void initState() {
+  
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     Get.find<playlistsongcheckcontrller>().showselectsong(widget.newindex);
     // playlistsongCheck.showselectsong(widget.newindex);
@@ -48,6 +54,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         actions: [
           IconButton(
               onPressed: () {
+                 print('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn${Get.find<playlistcontroller>().songslist}');
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                   return Screen_playlist(modelindex: widget.newindex!);
                 })).whenComplete(() {
@@ -74,7 +81,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         child: ListView(
           children: [
             Get.find<playlistcontroller>().playlistsong[widget.newindex!].songlistdb.isEmpty?
-            // PlaylistFunctions
+            // PlaylistFunctionsa
             //         .playlistsong.value[widget.newindex!].songlistdb.isEmpty
             //     ?
                  const Center(
@@ -116,6 +123,7 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                   ),
                                   child: ListTile(
                                     onTap: () {
+                                     
                                       MyHomePage.player.setAudioSource(
                                         createPlaylist(controller
                                             .playlistmodel),

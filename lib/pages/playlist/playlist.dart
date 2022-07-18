@@ -5,6 +5,7 @@ import 'package:Music_player/pages/playlist/playlist_showsongs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 // ignore: must_be_immutable
 class PlayList extends StatelessWidget {
   PlayList({Key? key, this.addplaylist}) : super(key: key);
@@ -12,8 +13,9 @@ class PlayList extends StatelessWidget {
   final namecontroller = TextEditingController();
 
   final playlistcontroller controller = Get.put(playlistcontroller());
-  final playlistsongcheckcontrller Playlistsongcheckcontrller = Get.put(playlistsongcheckcontrller());
-  
+  final playlistsongcheckcontrller Playlistsongcheckcontrller =
+      Get.put(playlistsongcheckcontrller());
+
   String? name;
   int? addplaylist;
   @override
@@ -43,88 +45,87 @@ class PlayList extends StatelessWidget {
                 child: GetBuilder<playlistcontroller>(
                   init: playlistcontroller(),
                   builder: ((controller) {
-                    // valueListenable: PlaylistFunctions.playlistsong,
-                    // builder: (BuildContext ctx, List<dynamic> playlist,
-                    //     Widget? child) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              mainAxisExtent: 140,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                            ),
-                            itemCount: controller.playlistsong.length,
-                            itemBuilder: (BuildContext ctx, int index) {
-                              return InkWell(
-                                  onTap: () {
-                                    Get.to(() => PlaylistFolder(
-                                          newindex: index,
-                                        ));
-                                  },
-                                  onLongPress: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (ctx) {
-                                          return AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            backgroundColor: Colors.white,
-                                            title: Text(
-                                              'Delete Folder ${Get.find<playlistcontroller>().playlistsong[index].name} ',
-                                              style: const TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            actions: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Get.back();
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.cancel_outlined,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                  )),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Get.find<playlistcontroller>()
-                                                        .deleteplaylist(index);
-                                                    Get.back();
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.delete,
-                                                    color: Color.fromARGB(
-                                                        255, 255, 17, 0),
-                                                  )),
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border: Border.all(
-                                              width: 2,
-                                              color: Color.fromARGB(
-                                                  255, 168, 168, 168)),
-                                          color: Colors.black87),
-                                      child: Center(
-                                          child: Text(
-                                        Get.find<playlistcontroller>().playlistsong[index].name.toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            mainAxisExtent: 140,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                          ),
+                          itemCount: controller.playlistsong.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            return InkWell(
+                                onTap: () {
+                                  Get.to(() => PlaylistFolder(
+                                        newindex: index,
+                                      ));
+                                },
+                                onLongPress: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          backgroundColor: Colors.white,
+                                          title: Text(
+                                            'Delete Folder ${Get.find<playlistcontroller>().playlistsong[index].name} ',
+                                            style: const TextStyle(
+                                                color: Colors.black),
+                                          ),
+                                          actions: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                icon: Icon(
+                                                  Icons.cancel_outlined,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                )),
+                                            IconButton(
+                                                onPressed: () {
+                                                  Get.find<playlistcontroller>()
+                                                      .deleteplaylist(index);
+                                                  Get.back();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.delete,
+                                                  color: Color.fromARGB(
+                                                      255, 255, 17, 0),
+                                                )),
+                                          ],
+                                        );
+                                      });
+                                },
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                            width: 2,
                                             color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontSize: 18),
-                                      ))));
-                            }),
-                      );
-                    }),
-              ),
+                                                255, 168, 168, 168)),
+                                        color: Colors.black87),
+                                    child: Center(
+                                        child: Text(
+                                      Get.find<playlistcontroller>()
+                                          .playlistsong[index]
+                                          .name
+                                          .toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: 18),
+                                    ))));
+                          }),
+                    );
+                  }),
+                ),
               ),
             ],
           )),
@@ -182,7 +183,8 @@ class PlayList extends StatelessWidget {
                                   final name = namecontroller.text;
                                   final model = Playlistmodels(
                                       name: name, songlistdb: []);
-                                  Get.find<playlistcontroller>().addplaylist(model:model);
+                                  Get.find<playlistcontroller>()
+                                      .addplaylist(model: model);
                                   Get.back();
                                 }
                               },
@@ -191,7 +193,8 @@ class PlayList extends StatelessWidget {
                       )
                     ],
                   );
-                });
+                }
+            );
           },
         ),
       ),

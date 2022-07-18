@@ -1,5 +1,4 @@
 import 'package:Music_player/controller/playlistsongcheckcontrller.dart';
-import 'package:Music_player/db_functions/databaseplaylist.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/playlist/playboutton.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ class _Screen_playlistState extends State<Screen_playlist> {
   @override
   Widget build(BuildContext context) {
     Get.find<playlistsongcheckcontrller>().showselectsong(widget.modelindex);
-    // playlistsongCheck.showselectsong(widget.modelindex);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,

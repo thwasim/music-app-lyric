@@ -98,18 +98,18 @@ class _ScreenplayState extends State<Screenplay> {
                       } else if (DragDownDetails.primaryVelocity! > 0) {
                         if (MyHomePage.player.hasPrevious) {
                           MyHomePage.player.seekToPrevious();
-                          setState(() {});
+                          setState((){});
                         }
                       }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.90,
                       height: MediaQuery.of(context).size.height * 0.35,
-                      // margin: const EdgeInsets.only(top: 40, bottom: 30),
+                      margin: const EdgeInsets.only(top: 40, bottom: 30),
                       child: QueryArtworkWidget(
                         id: widget.songlist![currentIndex].id,
                         type: ArtworkType.AUDIO,
-                        // artworkBorder: BorderRadius.circular(0.0),
+                        artworkBorder: BorderRadius.circular(0.0),
                       ),
                     ),
                   ),
