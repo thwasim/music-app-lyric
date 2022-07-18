@@ -1,6 +1,5 @@
 import 'package:Music_player/controller/favourte_controller.dart';
-import 'package:Music_player/db_functions/databasefavourite.dart';
-import 'package:Music_player/db_functions/databaseplaylist.dart';
+import 'package:Music_player/controller/playlist_controller.dart';
 import 'package:Music_player/pages/favourtie/favouritebutton.dart';
 import 'package:Music_player/pages/home/contact.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
@@ -188,7 +187,7 @@ class _MyHomePage extends State<MyHomePage> {
                     Get.back();
                   },
                   onConfirm: () {
-                    playlistsongCheck.reseapp();
+                    Get.find<playlistcontroller>().reseapp();
                     Get.offAll(Screensplah());
                   },
                 );

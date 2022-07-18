@@ -1,7 +1,8 @@
+import 'package:Music_player/controller/playlist_controller.dart';
 import 'package:Music_player/db_functions/data_model.dart';
-import 'package:Music_player/db_functions/databaseplaylist.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class PlaylistButton extends StatefulWidget {
@@ -24,11 +25,12 @@ class PlaylistButton extends StatefulWidget {
 class _PlaylistButtonState extends State<PlaylistButton> {
   @override
   Widget build(BuildContext context) {
-    final checkindex = PlaylistFunctions
-        .playlistsong.value[widget.folderindex!].songlistdb
+    final playlitsfunctions = Get.find<playlistcontroller>();
+   
+    final checkindex =  Get.find<playlistcontroller>().playlistsong[widget.folderindex!].songlistdb
         .contains(widget.songindex);
-    final indexcheck = PlaylistFunctions
-        .playlistsong.value[widget.folderindex!].songlistdb
+    final indexcheck = playlitsfunctions
+        .playlistsong[widget.folderindex!].songlistdb
         .indexWhere((element) => element == MyHomePage.songs[widget.index!].id);
     if (checkindex != true) {
       return IconButton(
@@ -36,15 +38,15 @@ class _PlaylistButtonState extends State<PlaylistButton> {
             widget.songslist.add(MyHomePage.songs[widget.index!].id);
             PlaylistButton.updatelist = [
               widget.songslist,
-              PlaylistFunctions
-                  .playlistsong.value[widget.folderindex!].songlistdb
+              playlitsfunctions
+                  .playlistsong[widget.folderindex!].songlistdb
             ].expand((element) => element).toList();
             final model = Playlistmodels(
-              name: PlaylistFunctions
-                  .playlistsong.value[widget.folderindex!].name,
+              name: playlitsfunctions
+                  .playlistsong[widget.folderindex!].name,
               songlistdb: PlaylistButton.updatelist,
             );
-            await PlaylistFunctions.updatlist(widget.folderindex, model);
+            await playlitsfunctions.updatlist(widget.folderindex, model);
             setState(() {});
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -65,17 +67,17 @@ class _PlaylistButtonState extends State<PlaylistButton> {
     }
     return IconButton(
         onPressed: () async {
-          PlaylistFunctions.playlistsong.value[widget.folderindex!].songlistdb
+          playlitsfunctions.playlistsong[widget.folderindex!].songlistdb
               .removeAt(indexcheck);
           PlaylistButton.dltlist = [
             widget.songslist,
-            PlaylistFunctions.playlistsong.value[widget.folderindex!].songlistdb
+            playlitsfunctions.playlistsong[widget.folderindex!].songlistdb
           ].expand((element) => element).toList();
           final model = Playlistmodels(
-              name: PlaylistFunctions
-                  .playlistsong.value[widget.folderindex!].name,
+              name: playlitsfunctions
+                  .playlistsong[widget.folderindex!].name,
               songlistdb: PlaylistButton.dltlist);
-          await PlaylistFunctions.updatlist(widget.folderindex, model);
+          await playlitsfunctions.updatlist(widget.folderindex, model);
           setState(() {});
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

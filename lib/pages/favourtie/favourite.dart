@@ -48,11 +48,11 @@ class FavouritePage extends StatelessWidget {
                           child: ListTile(
                             onTap: () async {
                               Get.to(() => Screenplay(
-                                    songlist: controller.favsongmodel,
+                                    songlist: favcontroller.favouritesongs ,
                                   ));
                               await MyHomePage.player.setAudioSource(
                                   createPlaylist(
-                                      controller.favsongmodel),
+                                      controller.favouritesongs),
                                   initialIndex: index);
                               await MyHomePage.player.play();
                             },

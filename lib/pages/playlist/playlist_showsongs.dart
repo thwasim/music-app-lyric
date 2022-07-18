@@ -1,4 +1,5 @@
-import 'package:Music_player/db_functions/databaseplaylist.dart';
+import 'package:Music_player/controller/playlist_controller.dart';
+import 'package:Music_player/controller/playlistsongcheckcontrller.dart';
 import 'package:Music_player/pages/home/homepage.dart';
 import 'package:Music_player/pages/home/screenplay.dart';
 import 'package:Music_player/pages/playlist/playlist_show.dart';
@@ -10,10 +11,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 // ignore: must_be_immutable
 class PlaylistFolder extends StatefulWidget {
-  PlaylistFolder({
-    Key? key,
-    this.newindex,
-  }) : super(key: key);
+  PlaylistFolder({Key? key,this.newindex,}) : super(key: key);
 
   int? newindex;
   @override
@@ -23,14 +21,16 @@ class PlaylistFolder extends StatefulWidget {
 class _PlaylistFolderState extends State<PlaylistFolder> {
   @override
   Widget build(BuildContext context) {
-    playlistsongCheck.showselectsong(widget.newindex);
+    Get.find<playlistsongcheckcontrller>().showselectsong(widget.newindex);
+    // playlistsongCheck.showselectsong(widget.newindex);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         title: Center(
             child: Text(
-          PlaylistFunctions.playlistsong.value[widget.newindex!].name
+              Get.find<playlistcontroller>().playlistsong[widget.newindex!].name
+          // PlaylistFunctions.playlistsong.value[widget.newindex!].name
               .toString()
               .toUpperCase(),
           style: const TextStyle(
@@ -73,9 +73,11 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
         ),
         child: ListView(
           children: [
-            PlaylistFunctions
-                    .playlistsong.value[widget.newindex!].songlistdb.isEmpty
-                ? const Center(
+            Get.find<playlistcontroller>().playlistsong[widget.newindex!].songlistdb.isEmpty?
+            // PlaylistFunctions
+            //         .playlistsong.value[widget.newindex!].songlistdb.isEmpty
+            //     ?
+                 const Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 30),
                       child: Center(
@@ -91,13 +93,15 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                   )
                 : SizedBox(
                     height: MediaQuery.of(context).size.height * 0.8,
-                    child: ValueListenableBuilder(
-                        valueListenable: PlaylistFunctions.playlistsong,
-                        builder: (BuildContext ctx, List<dynamic> selectedsongs,
-                            Widget? child) {
+
+                    child: GetBuilder<playlistcontroller>(
+                        
+                        // valueListenable: PlaylistFunctions.playlistsong,
+                        builder: 
+                         (controller) {
                           return ListView.builder(
-                              itemCount: PlaylistFunctions.playlistsong
-                                  .value[widget.newindex!].songlistdb.length,
+                              itemCount: controller.playlistsong
+                                  [widget.newindex!].songlistdb.length,
                               itemBuilder: (ctx, index) {
                                 return Container(
                                     child: Container(
@@ -113,21 +117,21 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                   child: ListTile(
                                     onTap: () {
                                       MyHomePage.player.setAudioSource(
-                                        createPlaylist(playlistsongCheck
-                                            .playlistmodel.value),
+                                        createPlaylist(controller
+                                            .playlistmodel),
                                         initialIndex: index,
                                       );
                                       MyHomePage.player.play();
                                       Get.to(()=>Screenplay(
-                                          songlist: playlistsongCheck
-                                              .playlistmodel.value,
+                                          songlist: controller
+                                              .playlistmodel,
                                         ),);
                                     },
                                     leading: CircleAvatar(
                                       child: QueryArtworkWidget(
                                         id: MyHomePage
-                                            .songs[playlistsongCheck
-                                                .selectplaysong.value[index]]
+                                            .songs[controller
+                                                .selectplaysong[index]]
                                             .id,
                                         type: ArtworkType.AUDIO,
                                         artworkBorder: BorderRadius.circular(0),
@@ -135,8 +139,8 @@ class _PlaylistFolderState extends State<PlaylistFolder> {
                                     ),
                                     title: Text(
                                       MyHomePage
-                                          .songs[playlistsongCheck
-                                              .selectplaysong.value[index]]
+                                          .songs[controller
+                                              .selectplaysong[index]]
                                           .title,
                                       style: const TextStyle(
                                           overflow: TextOverflow.ellipsis,

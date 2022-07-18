@@ -5,9 +5,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class FavourtieController extends GetxController{
 
-  // FavourtieController(){
-  //   getAllsongs();
-  // }
+  FavourtieController(){
+    getAllsongs();
+  }
 
   // static ValueNotifier<List<dynamic>> favouritesongs = ValueNotifier([]);
    List<SongModel> favsongmodel = [];

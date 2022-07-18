@@ -105,11 +105,11 @@ class _ScreenplayState extends State<Screenplay> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.90,
                       height: MediaQuery.of(context).size.height * 0.35,
-                      margin: const EdgeInsets.only(top: 40, bottom: 30),
+                      // margin: const EdgeInsets.only(top: 40, bottom: 30),
                       child: QueryArtworkWidget(
                         id: widget.songlist![currentIndex].id,
                         type: ArtworkType.AUDIO,
-                        artworkBorder: BorderRadius.circular(50.0),
+                        // artworkBorder: BorderRadius.circular(0.0),
                       ),
                     ),
                   ),
@@ -306,6 +306,7 @@ class _ScreenplayState extends State<Screenplay> {
                             child: Container(
                               margin: EdgeInsets.only(right: 20.0),
                               child: FavFunction(
+
                                 index: currentIndex,
                               ),
                             ),
